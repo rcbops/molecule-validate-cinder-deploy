@@ -11,15 +11,11 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: 172.20.41.98
+  - name: aio1
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
-  connection_options:
-    ansible_ssh_user: ubuntu
-    ansible_ssh_common_args: -o IdentitiesOnly=no
-    become: true
 scenario:
   name: default
 verifier:
