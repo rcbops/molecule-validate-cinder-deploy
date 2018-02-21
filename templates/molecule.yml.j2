@@ -4,14 +4,22 @@ dependency:
 driver:
   name: delegated
   options:
-    managed: False
+    managed: false
     login_cmd_template: 'ssh {instance}'
     ansible_connection_options:
       connection: ssh
 lint:
   name: yamllint
 platforms:
-  - name: aio1
+{% for host in hosts.keys()|sort %}
+  - name: {{host}}
+{% if hosts[host]|length > 1 %}
+    groups:
+{% for group in hosts[host]|sort %}
+      - {{group}}
+{% endfor %}
+{% endif %}
+{% endfor %}
 provisioner:
   name: ansible
   lint:
@@ -20,5 +28,8 @@ scenario:
   name: default
 verifier:
   name: testinfra
+  options:
+    junitxml: test.xml
+    junitprefix: test
   lint:
     name: flake8
