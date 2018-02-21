@@ -22,8 +22,8 @@ cd /path/where/the/repo/will/be/cloned/to
 virtualenv --python python2 venv-molecule
 . venv-molecule/bin/activate
 pip install molecule testinfra ansible docker-py
-git clone git@github.com:johnduarte/molecule-ntp
-cd molecule-ntp
+git clone git@github.com:phongdly/molecule-validate-cinder-deploy
+cd molecule-validate-cinder-deploy
 molecule test
 ```
 
@@ -48,7 +48,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: molecule-ntp, x: 42 }
+         - { role: molecule-validate-cinder-deploy, x: 42 }
 
 Generate Molecule Config from Ansible Dynamic Inventory
 -------------------------------------------------------
@@ -65,7 +65,7 @@ cd /opt/openstack-ansible/playbooks/inventory
 Now you can generate a `molecule.yml` config file using the `moleculerize.py` script:
 
 ```
-cd /path/to/molecule-ntp
+cd /path/to/molecule-validate-cinder-deploy
 ./moleculerize.py /path/to/dynaic_inventory.json
 ```
 
