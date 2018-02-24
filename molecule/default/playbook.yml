@@ -1,5 +1,5 @@
 ---
 - name: Converge
-  hosts: aio1
+  hosts: cinder_volume
   roles:
     - role: molecule-validate-cinder-deploy
