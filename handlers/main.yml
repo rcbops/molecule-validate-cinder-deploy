@@ -1,10 +1,5 @@
 ---
 # handlers file for molecule-cinder
-- name: restart ntp
-  service:
-    name: "{{ ntp_daemon }}"
-    state: restarted
-
 - name: restart cinder-volume service
   become: true
   service:
