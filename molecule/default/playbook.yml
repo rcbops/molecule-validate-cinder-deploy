@@ -1,20 +1,4 @@
 ---
-- hosts: compute1
-  tasks:
-  - name: Check for existing volume
-    shell:
-      cmd: "source openrc ; openstack volume list"
-    args:
-      executable: /bin/bash
-    register: existing_volumes
-    changed_when: "False"
-  - name: Create Volume
-    shell:
-      cmd: "source openrc ; openstack volume create --size 1 test_volume_compute1"
-    args:
-      executable: /bin/bash
-    when: "'test_volume_compute1' not in existing_volumes.stdout"
-
 - name: Converge
   hosts: infra1
   roles:
