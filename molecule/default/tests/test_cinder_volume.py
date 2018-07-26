@@ -1,7 +1,7 @@
+import pytest_rpc.helpers as helpers
 import os
 import pytest
 import testinfra.utils.ansible_runner
-import utils
 
 """ASC-256: Verify Cinder volume creation.
 
@@ -23,9 +23,13 @@ def test_cinder_volume_created(host):
     """Verify cinder volume can be created"""
 
     # Create a test volume
-    test_volume_name = "test_volume_compute1"
-    cmd = "{} openstack volume create --size 1 --availability-zone nova {}'".format(utility_container, test_volume_name)
+    random_str = helpers.generate_random_string(4)
+    volume_name = "test_volume_{}".format(random_str)
+    cmd = "{} openstack volume create --size 1 --availability-zone nova {}'".format(utility_container, volume_name)
     host.run_expect([0], cmd)
 
     # Verify the volume is created
-    utils.verify_volume(test_volume_name, host)
+    assert volume_name in helpers.openstack_name_list('volume', host)
+
+    # Tear down
+    helpers.delete_volume(volume_name, host)
